@@ -17,7 +17,6 @@ public class Main {
     private static Connection conn;
     private static Statement st;
 
-
     private static void initConexion(){
         System.out.println("Intentando conectar a la base de datos...");
         try{
