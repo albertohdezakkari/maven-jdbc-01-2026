@@ -18,7 +18,6 @@ public class Main {
     private static Statement st;
 
 
-
     private static void initConexion(){
         System.out.println("Intentando conectar a la base de datos...");
         try{
@@ -39,7 +38,6 @@ public class Main {
         }
 
     }
-
     public static void main(String[] args) {
         try {
                 initConexion();

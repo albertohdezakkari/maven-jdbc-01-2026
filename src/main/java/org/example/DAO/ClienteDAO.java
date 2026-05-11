@@ -1,14 +1,33 @@
 package org.example.DAO;
 
-public class ClienteDAO
-       /* implements DAO<?> */{
+import org.example.beans.Cliente;
 
-    public void añadirCliente(){
+import java.util.ArrayList;
+
+public class ClienteDAO
+    implements DAO<Cliente> {
+    @Override
+    public void add(Cliente object) {
 
     }
 
-    /*@Override
-    public void add() {
+    @Override
+    public void update(int id, Cliente object) {
 
-    }*/
+    }
+
+    @Override
+    public void delete(int id) {
+
+    }
+
+    @Override
+    public Cliente find(int id) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Cliente> findAll() {
+        return null;
+    }
 }
