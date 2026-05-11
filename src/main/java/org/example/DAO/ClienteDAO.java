@@ -11,7 +11,8 @@ public class ClienteDAO
     private static final String USER = "postgres";
     private static final String PASSWORD = "12345678";
     private static final String DRIVER = "org.postgresql.Driver";
-    private static final String SQL_SELECT = "SELECT * FROM CLIENTES";
+    private static final String SQL_SELECT =
+                "SELECT * FROM CLIENTES";
 
     private static Connection conn;
     private static Statement st;
@@ -40,24 +41,53 @@ public class ClienteDAO
         initConexion();
         ResultSet rs = ejecutarQuery(SQL_SELECT);
     }
-
     @Override
     public void update(int id, Cliente object) {
         initConexion();
         ResultSet rs = ejecutarQuery(SQL_SELECT);
-    }
 
+        // SE LLAMA HACER SQL'S "DINÁMICAS!!!!!!"
+
+        // UPDATE CLIENTES
+            // SET nombre=?
+            // WHERE ID = id
+        // UPDATE CLIENTES
+        // SET nombre=?, email=?
+        // WHERE ID = id
+        // UPDATE CLIENTES
+        // SET nombre=?, email=?, fecha_nac= ?
+        // WHERE ID = id
+    }
     @Override
     public void delete(int id) {
         initConexion();
         ResultSet rs = ejecutarQuery(SQL_SELECT);
     }
-
     @Override
     public Cliente find(int id) {
+        String SQL_SELECT_ID_PARAM =
+                "SELECT * FROM CLIENTES WHERE ID = ?" ;
+        Cliente cliente = null;
         initConexion();
-        ResultSet rs = ejecutarQuery(SQL_SELECT);
-        return null;
+        try{
+        PreparedStatement ps =
+                    conn.prepareStatement(SQL_SELECT_ID_PARAM);
+                    ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery ();
+
+            if(rs!= null) {
+                if(rs.next()){
+                    cliente = new Cliente();
+                    cliente.setId(rs.getInt(1));
+                    cliente.setNombre(rs.getString(2));
+                    cliente.setEmail(rs.getString(3));
+                    cliente.setDia(rs.getString(4));
+                    cliente.setMes(rs.getString(5));
+                    cliente.setAnyo(rs.getString(6));
+                }
+            }
+        }catch (Exception e){}
+        return cliente;
     }
 
     @Override
@@ -91,8 +121,9 @@ public class ClienteDAO
     // PRUEBAS UNITARIAS
     public static void main (String[] args){
         ClienteDAO clienteDAO = new ClienteDAO();
-        clienteDAO.findAll();
-
+        //clienteDAO.findAll();
+        Cliente cliente = clienteDAO.find(1);
+        System.out.println(cliente.toString());
 
     }
 }
