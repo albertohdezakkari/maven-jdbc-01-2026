@@ -6,7 +6,6 @@ import org.example.beans.Cliente;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 public class Main {
     private static final String URL = "jdbc:postgresql://database-2.cxhptkfuwfna.us-east-1.rds.amazonaws.com:5432/postgres";
     private static final String USER = "postgres";

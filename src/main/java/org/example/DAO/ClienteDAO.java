@@ -7,74 +7,32 @@ import java.util.ArrayList;
 
 public class ClienteDAO
     implements DAO<Cliente> {
-    private static final String URL = "jdbc:postgresql://database-2.cxhptkfuwfna.us-east-1.rds.amazonaws.com:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "12345678";
-    private static final String DRIVER = "org.postgresql.Driver";
     private static final String SQL_SELECT =
                 "SELECT * FROM CLIENTES";
-
-    private static Connection conn;
-    private static Statement st;
-    private static void initConexion(){
-        System.out.println("Intentando conectar a la base de datos...");
-        try{
-            Class.forName(DRIVER);
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        }catch (Exception e){
-
-        }
-    }
-    private static ResultSet ejecutarQuery(String SQL){
-        ResultSet rs = null;
-        try{
-            st = conn.createStatement();
-            rs = st.executeQuery(SQL);
-        }catch(Exception e){
-        }finally {
-            return rs;
-        }
-
-    }
     @Override
     public void add(Cliente object) {
-        initConexion();
-        ResultSet rs = ejecutarQuery(SQL_SELECT);
+
     }
     @Override
-    public void update(int id, Cliente object) {
-        initConexion();
-        ResultSet rs = ejecutarQuery(SQL_SELECT);
-
-        // SE LLAMA HACER SQL'S "DINÁMICAS!!!!!!"
-
-        // UPDATE CLIENTES
-            // SET nombre=?
-            // WHERE ID = id
-        // UPDATE CLIENTES
-        // SET nombre=?, email=?
-        // WHERE ID = id
-        // UPDATE CLIENTES
-        // SET nombre=?, email=?, fecha_nac= ?
-        // WHERE ID = id
-    }
+    public void update(int id, Cliente object) {}
     @Override
-    public void delete(int id) {
-        initConexion();
-        ResultSet rs = ejecutarQuery(SQL_SELECT);
-    }
+    public void delete(int id) {}
     @Override
     public Cliente find(int id) {
         String SQL_SELECT_ID_PARAM =
                 "SELECT * FROM CLIENTES WHERE ID = ?" ;
+        String SQL_SELECT_ID_PARAM_ST =
+                "SELECT * FROM CLIENTES WHERE ID = " + id ;
         Cliente cliente = null;
-        initConexion();
+        MotorSQL.conectar();
         try{
-        PreparedStatement ps =
-                    conn.prepareStatement(SQL_SELECT_ID_PARAM);
-                    ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery ();
-
+        ResultSet rs =
+                MotorSQL.
+                        ejecutarDML(SQL_SELECT_ID_PARAM_ST);
+            ResultSet rs2 =
+                    MotorSQL.
+                            ejecutarDMLPST(SQL_SELECT_ID_PARAM);
+                            MotorSQL.getPst().setInt(1, id);
             if(rs!= null) {
                 if(rs.next()){
                     cliente = new Cliente();
@@ -89,13 +47,14 @@ public class ClienteDAO
         }catch (Exception e){}
         return cliente;
     }
-
     @Override
     public ArrayList<Cliente> findAll() {
         ArrayList<Cliente> lstClientes =
                 new ArrayList<>();
-        initConexion();
-        ResultSet rs = ejecutarQuery(SQL_SELECT);
+        MotorSQL.conectar();
+        ResultSet rs =
+                MotorSQL.
+                        ejecutarDML(SQL_SELECT);
         try {
             if(rs!=null){
                 while(rs.next()){
