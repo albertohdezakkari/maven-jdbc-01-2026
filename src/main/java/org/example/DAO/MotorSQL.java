@@ -5,42 +5,104 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class MotorSQL {
-    private static final String URL = "jdbc:postgresql://database-2.cxhptkfuwfna.us-east-1.rds.amazonaws.com:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "12345678";
-    private static final String DRIVER = "org.postgresql.Driver";
-    private static Connection conn;
-    private static Statement st;
+public abstract class MotorSQL {
 
-    public static PreparedStatement getPst() {
-        return pst;
+    protected String url;
+
+    protected String user;
+
+    protected String password;
+
+    protected String driver;
+
+    protected Connection conn;
+
+    protected PreparedStatement ps;
+
+    public MotorSQL(
+            String url,
+            String user,
+            String password,
+            String driver) {
+
+        this.url = url;
+        this.user = user;
+        this.password = password;
+        this.driver = driver;
     }
 
-    private static PreparedStatement pst;
-    private static ResultSet rs;
+    public abstract void connect();
 
-    public static void conectar(){}
-    public static void ejecutarDDL(){}
-    public static ResultSet ejecutarDML(String SQL){
-        ResultSet rs = null;
+    public void prepare(String SQL){
+
         try{
-            st = conn.createStatement();
-            rs = st.executeQuery(SQL);
-        }catch(Exception e){
-        }finally {
-            return rs;
+
+            ps = conn.prepareStatement(SQL);
+
+        }catch (Exception e){
+
+            System.out.println(
+                    e.getMessage());
         }
     }
-    public static ResultSet ejecutarDMLPST(String SQL){
+
+    public ResultSet executeQuery(){
+
         ResultSet rs = null;
+
         try{
-            pst = conn.prepareStatement(SQL);
-            //rs = st.executeQuery(SQL);
-        }catch(Exception e){
-        }finally {
-            return rs;
+
+            rs = ps.executeQuery();
+
+        }catch (Exception e){
+
+            System.out.println(
+                    e.getMessage());
+        }
+
+        return rs;
+    }
+
+    public int executeUpdate(){
+
+        int rows = 0;
+
+        try{
+
+            rows = ps.executeUpdate();
+
+        }catch (Exception e){
+
+            System.out.println(
+                    e.getMessage());
+        }
+
+        return rows;
+    }
+
+    public PreparedStatement getPs() {
+
+        return ps;
+    }
+
+    public void close(){
+
+        try{
+
+            if(ps != null){
+
+                ps.close();
+            }
+
+            if(conn != null){
+
+                conn.close();
+            }
+
+        }catch (Exception e){
+
+            System.out.println(
+                    e.getMessage());
         }
     }
-    public static void desconectar(){}
 }

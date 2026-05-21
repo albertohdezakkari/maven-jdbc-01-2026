@@ -2,10 +2,15 @@ package org.example.DAO;
 
 import java.util.ArrayList;
 
-public interface DAO<X> {
-    void add(X object);
-    void update(int id, X object);
+public interface DAO<T> {
+
+    void add(T object);
+
+    void update(int id, T object);
+
     void delete(int id);
-    X find(int id);
-    ArrayList<X> findAll(); // SELECT * FROM TAB
+
+    T find(int id);
+
+    ArrayList<T> findAll();
 }
