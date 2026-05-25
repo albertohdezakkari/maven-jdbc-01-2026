@@ -11,117 +11,44 @@ import java.util.ArrayList;
 public class Main2 {
 
     public static void main(String[] args) {
-
-        MotorSQL motorSQL =
+        /* MotorSQL motorSQL =
                 MotorFactory.create(
                         MotorFactory.POSTGRE
-                );
-
+                ); */
         PeliculaDAOImpl peliculaDAO =
-                new PeliculaDAOImpl(
-                        motorSQL
-                );
-
-        /*
-         * FIND ALL
-         */
-
-        System.out.println(
-                "=== FIND ALL ===");
-
-        ArrayList<Pelicula> peliculas =
-                peliculaDAO.findAll();
-
-        for(Pelicula pelicula : peliculas){
-
-            System.out.println(
-                    pelicula);
+                new PeliculaDAOImpl(MotorFactory.
+                        create(
+                                MotorFactory.POSTGRE));
+        peliculaDAO.check();
+        // Prueba Unitaria: ADD Película
+        Pelicula pelicula = new Pelicula();
+        pelicula.setTitulo("300");
+        pelicula.setDirector("Zack Snyder");
+        pelicula.setAnyo(2007);
+        pelicula.setGenero("Cine Epico");
+        peliculaDAO.add(pelicula);
+        // Fin Prueba Unitaria: ADD Película
+        // Prueba Unitaria: LISTAR PELÍCULAS
+        ArrayList<Pelicula> lstPelicula = peliculaDAO.findAll();
+        for (Pelicula pelicula1:lstPelicula
+             ) {
+            System.out.println(pelicula1.toString());
         }
+        // Fin Prueba Unitaria: LISTAR PELÍCULAS
+        // Prueba Unitaria: ELIMINAR
+            peliculaDAO.delete(9);
+        // Prueba Unitaria: FIN ELIMINAR
+        // Fin Prueba Unitaria: ELIMINAR
 
-        /*
-         * INSERT
-         */
+        // Prueba Unitaria: FIND
+        peliculaDAO.find(2);
+        // Prueba Unitaria: FIND
 
-        Pelicula nueva =
-                new Pelicula(
-                        "Matrix",
-                        "Wachowski",
-                        "Ciencia ficción",
-                        1999,
-                        136
-                );
-
-        peliculaDAO.add(nueva);
-
-        /*
-         * FIND ID
-         */
-
-        System.out.println(
-                "=== FIND ID ===");
-
-        Pelicula pelicula =
-                peliculaDAO.find(1);
-
-        System.out.println(
-                pelicula);
-
-        /*
-         * UPDATE
-         */
-
-        Pelicula update =
-                new Pelicula(
-                        "Interstellar 2",
-                        "Christopher Nolan",
-                        "Ciencia ficción",
-                        2025,
-                        180
-                );
-
-        peliculaDAO.update(
-                1,
-                update
-        );
-
-        /*
-         * DELETE
-         */
-
-        peliculaDAO.delete(2);
-
-        /*
-         * FIND GENERO
-         */
-
-        System.out.println(
-                "=== FIND GENERO ===");
-
-        ArrayList<Pelicula> cienciaFiccion =
-                peliculaDAO.findByGenero(
-                        "Ciencia ficción"
-                );
-
-        for(Pelicula p : cienciaFiccion){
-
-            System.out.println(p);
-        }
-
-        /*
-         * FIND DIRECTOR
-         */
-
-        System.out.println(
-                "=== FIND DIRECTOR ===");
-
-        ArrayList<Pelicula> nolan =
-                peliculaDAO.findByDirector(
-                        "Christopher Nolan"
-                );
-
-        for(Pelicula p : nolan){
-
-            System.out.println(p);
-        }
+        // Prueba Unitaria: UPDATE
+        // peliculaDAO.update(¿?¿?¿?);
+        // Prueba Unitaria: UPDATE
+        // Prueba Unitaria: FIND DETALLE DE PEDIDO
+        peliculaDAO.findDetallePeliculaByPelicula(5);
+        // Prueba Unitaria:  FIND DETALLE DE PEDIDO
     }
 }

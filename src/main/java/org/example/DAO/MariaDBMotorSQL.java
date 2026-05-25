@@ -2,16 +2,14 @@ package org.example.DAO;
 
 import java.sql.DriverManager;
 
-public class PostgreMotorSQL extends MotorSQL {
+public class MariaDBMotorSQL
+        extends MotorSQL {
     private static final String URL =
-            "jdbc:postgresql://database-2.cxhptkfuwfna.us-east-1.rds.amazonaws.com:5432/postgres";
-    private static final String USER =
-            "postgres";
-    private static final String PASSWORD =
-            "12345678";
-    private static final String DRIVER =
-            "org.postgresql.Driver";
-    public PostgreMotorSQL(){
+            "jdbc:mariadb://db-mariadb.cgsa0il5cf9s.us-east-1.rds.amazonaws.com:3306/mariadb";
+    private static final String USER = "admin";
+    private static final String PASSWORD =  "12345678";
+    private static final String DRIVER =  "org.mariadb.jdbc.Driver";
+    public MariaDBMotorSQL(){
         super(
                 URL,
                 USER,

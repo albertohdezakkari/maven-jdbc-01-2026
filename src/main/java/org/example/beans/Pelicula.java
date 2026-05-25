@@ -1,5 +1,7 @@
 package org.example.beans;
 
+import java.util.ArrayList;
+
 public class Pelicula {
     private int id;
     private String titulo;
@@ -7,6 +9,8 @@ public class Pelicula {
     private String genero;
     private int anyo;
     private int duracion;
+    private DetallePelicula detallePelicula;
+    private Categoria categoria;
 
     public Pelicula(String titulo, String director, String genero, int anyo, int duracion) {
         this.titulo = titulo;
@@ -26,6 +30,13 @@ public class Pelicula {
     }
 
     public Pelicula() {
+    }
+
+    public DetallePelicula getDetallePelicula() {
+        if(detallePelicula == null){
+            detallePelicula = new DetallePelicula();
+        }
+        return detallePelicula;
     }
 
     public int getId() {
@@ -74,5 +85,17 @@ public class Pelicula {
 
     public void setDuracion(int duracion) {
         this.duracion = duracion;
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", director='" + director + '\'' +
+                ", genero='" + genero + '\'' +
+                ", anyo=" + anyo +
+                ", duracion=" + duracion +
+                '}';
     }
 }

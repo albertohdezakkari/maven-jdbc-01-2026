@@ -5,18 +5,13 @@ public class MotorFactory {
     public static final String POSTGRE = "POSTGRE";
     public static final String MARIADB = "MARIADB";
     public static final String SQLSERVER = "SQLSERVER";
-
-    public static MotorSQL create(
-            String motor){
-
+    public static MotorSQL create(String motor){
         switch (motor){
-
             case POSTGRE:
-
                 return new PostgreMotorSQL();
-
+            case MARIADB:
+                return new MariaDBMotorSQL();
             default:
-
                 throw new IllegalArgumentException(
                         "Motor no soportado");
         }

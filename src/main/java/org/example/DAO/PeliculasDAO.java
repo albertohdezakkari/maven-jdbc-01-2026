@@ -8,9 +8,7 @@ public class PeliculasDAO
  implements DAO<Pelicula> {
 
     @Override
-    public void add(Pelicula object) {
-
-    }
+    public void add(Pelicula object) {}
 
     @Override
     public void update(int id, Pelicula object) {
@@ -21,12 +19,10 @@ public class PeliculasDAO
     public void delete(int id) {
 
     }
-
     @Override
     public Pelicula find(int id) {
         return null;
     }
-
     @Override
     public ArrayList<Pelicula> findAll() {
         return null;

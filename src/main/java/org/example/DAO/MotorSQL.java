@@ -6,19 +6,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public abstract class MotorSQL {
-
     protected String url;
-
     protected String user;
-
     protected String password;
-
     protected String driver;
-
     protected Connection conn;
-
     protected PreparedStatement ps;
-
     public MotorSQL(
             String url,
             String user,
@@ -30,9 +23,7 @@ public abstract class MotorSQL {
         this.password = password;
         this.driver = driver;
     }
-
     public abstract void connect();
-
     public void prepare(String SQL){
 
         try{
@@ -45,7 +36,6 @@ public abstract class MotorSQL {
                     e.getMessage());
         }
     }
-
     public ResultSet executeQuery(){
 
         ResultSet rs = null;
@@ -62,7 +52,6 @@ public abstract class MotorSQL {
 
         return rs;
     }
-
     public int executeUpdate(){
 
         int rows = 0;
@@ -79,12 +68,10 @@ public abstract class MotorSQL {
 
         return rows;
     }
-
     public PreparedStatement getPs() {
 
         return ps;
     }
-
     public void close(){
 
         try{
